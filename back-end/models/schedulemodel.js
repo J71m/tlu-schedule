@@ -1,74 +1,31 @@
 const request = require('request')
 const cheerio = require('cheerio')
+const iconv = require('iconv-lite')
 
-async function getHTML(url) {
-    const { data: html } = await axios.get(url);
-    return html;
-}
+const url = 'http://www.tlu.ee/masio/?id=ryhm&ryhm=IFIFB-2#mASIO'
 
-async function getWeekSchedule(html) {
-    // load up cheerio
-    const $ = cheerio.load(html);
-    const span = $('.glayout')
-    $('.dayname').each( (i, e) => { //for every day, [0] == monday
-        //console.log($(this).text())
-        console.log($(e).text())
+const getSchedule = url => {
+    request(url, (error, res, html) => {
+        if(!error && res.statusCode == 200) {
+            const $ = cheerio.load(iconv.decode(html, 'ISO-8859-16'))
+            //const days = $('#mASIO .dayname')
+            const days = $('.dp div')
+            days.each((i, element) => {
+                if ($(element).hasClass("dayname")) {
+                    console.log($(element).text())
+                }
+                
+                /*
+                $(element).each((lessonIterator, lessonEl) => {
+                    const lesson = $(lessonEl).text()
+                    //console.log(lesson)
+                })
+                const day = $(element).next().text()
+                //console.log(i, day)
+                */
+            })
+        }
     })
-    //console.log(span)
-    //return span.data('count');
 }
 
-const tluinf = 'http://www.tlu.ee/masio/?id=ryhm&ryhm=IFIFB-2#mASIO'
-let fullhtml = getHTML(tluinf).then(htmltext => {
-    getWeekSchedule(htmltext)
-})
-
-const oneWeekData = // oneWeekData.classes[0][0].name === "boring lesson"
-{
-    "year": 2019,
-    "week": 14,
-    "group": "IFIFB-2",
-    "classes": [
-        [ // monday
-            {
-                "name": "boring lesson",
-                "lecturer": "mr boring",
-                "room": "A404",
-                "startTime": "10:15",
-                "endTime": "13:45",
-
-            },
-            {
-                "name": "boring lesson2",
-                "lecturer": "mr boring2",
-                "room": "A406",
-                "startTime": "14:15",
-                "endTime": "15:45",
-
-            }
-        ],
-        [ // tuesday
-
-        ],
-        [ // wednesday
-            {
-                "name": "boring lesson",
-                "lecturer": "mr boring",
-                "room": "A404",
-                "startTime": "10:15",
-                "endTime": "13:45",
-
-            },
-            {
-                "name": "boring lesson2",
-                "lecturer": "mr boring2",
-                "room": "A406",
-                "startTime": "14:15",
-                "endTime": "15:45",
-
-            }
-        ]
-    ]
-}
-
-//console.log(oneWeekData.classes[2][0].name)
+getSchedule(url)
