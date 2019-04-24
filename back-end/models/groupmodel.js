@@ -12,7 +12,6 @@ const transformData = $ => {
             "name": $(element).children('a').text(),
             "id": $(element).children('input').attr('value')
         }
-        console.log(group)
         groups.push(group)
     })
     return groups
