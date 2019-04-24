@@ -32,5 +32,7 @@ exports.postScheduleSpecific = (req, res, next) => {
 }
 
 exports.getGroups = (req, res, next) => {
-  res.send(Groups.getGroups())
+  Groups.getGroups().then(data => {
+    res.send(data)
+  })
 }
