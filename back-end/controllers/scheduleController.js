@@ -1,3 +1,4 @@
+const Groups = require('../models/groupmodel')
 const Schedule = require('../models/schedulemodel')
 const test_schedule = require('../models/test-schedule')
 
@@ -28,4 +29,8 @@ exports.postScheduleSpecific = (req, res, next) => {
     })
 
   }
+}
+
+exports.getGroups = (req, res, next) => {
+  res.send(Groups.getGroups())
 }
