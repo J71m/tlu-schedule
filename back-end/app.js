@@ -9,4 +9,4 @@ app.use(cors())
 app.get('*', scheduleRoute);
 app.post('*', scheduleRoute);
 
-app.listen(8080);
+app.listen(6969);
