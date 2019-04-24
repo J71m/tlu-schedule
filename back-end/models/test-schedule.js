@@ -1,7 +1,6 @@
 exports.oneWeekData =
 {
-    "year": 2019,
-    "week": 14,
+    "time": 1555494500,
     "group": "IFIFB-2",
     "classes": [
         [   // monday
@@ -50,7 +49,9 @@ exports.oneWeekData =
                 "startTime": "14:15",
                 "endTime": "15:45"
             }
-        ]
+        ],
+        [],
+        []
     ]
 }
 //                                   monday=0, tuesday=1, ..., friday=4
