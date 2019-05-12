@@ -1,10 +1,6 @@
 const Groups = require('../models/groupmodel')
 const Schedule = require('../models/schedulemodel')
-const test_schedule = require('../models/test-schedule')
 
-exports.getTestSchedule = (req, res, next) => {
-  res.json(test_schedule.oneWeekData)
-}
 
 exports.getSchedule = (req, res, next) => {
   const schedule = new Schedule()
